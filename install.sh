@@ -3,7 +3,7 @@
 REPO_URL="https://github.com/blacknesses/Traceroute"
 TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
 INSTALL_DIR="/usr/local/bin"
-SCRIPT_NAME="trace"
+SCRIPT_NAME="trace.py"
 SCRIPT_PATH="$INSTALL_DIR/$SCRIPT_NAME"  # Movendo como trace
 UNINSTALLER_PATH="/usr/local/bin/uninstall_trace.sh"
 

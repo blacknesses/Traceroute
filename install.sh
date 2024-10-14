@@ -3,8 +3,8 @@
 REPO_URL="https://github.com/blacknesses/Traceroute"
 TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
 INSTALL_DIR="/usr/local/bin"
-SCRIPT_NAME="trace.py"
-SCRIPT_PATH="$INSTALL_DIR/$SCRIPT_NAME"  # Movendo como trace
+SCRIPT_NAME="trace.py"  # Certifique-se de que este seja o nome correto do arquivo
+SCRIPT_PATH="$INSTALL_DIR/trace"  # O nome final será "trace"
 UNINSTALLER_PATH="/usr/local/bin/uninstall_trace.sh"
 
 # Função para barra de progresso
@@ -40,15 +40,21 @@ install_trace() {
         exit 1
     fi
 
-    # Definir permissões e mover o script para o diretório de instalação
-    echo "Status: configurando permissões...         ✓ [OK]"
-    sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1
-    sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1
-    progress_bar 10  # Simula a barra de progresso (10 iterações)
-    if [ $? -eq 0 ]; then
-        echo "Status: permissões configuradas!           ✓ [OK]"
+    # Verificar se o script existe
+    if [ -f "$TEMP_DIR/$SCRIPT_NAME" ]; then
+        echo "Status: configurando permissões...         ✓ [OK]"
+        sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1
+        sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1
+        progress_bar 10  # Simula a barra de progresso (10 iterações)
+        if [ $? -eq 0 ]; then
+            echo "Status: permissões configuradas!           ✓ [OK]"
+        else
+            echo "Status: falha ao configurar permissões!    ✗ [FALHA]" >&2
+            rm -rf "$TEMP_DIR"
+            exit 1
+        fi
     else
-        echo "Status: falha ao configurar permissões!    ✗ [FALHA]" >&2
+        echo "Erro: arquivo $SCRIPT_NAME não encontrado no repositório!" >&2
         rm -rf "$TEMP_DIR"
         exit 1
     fi
@@ -77,7 +83,7 @@ EOF
     echo "-------------------------"
     echo "Sintaxe: trace IP/Domain"
     echo "-------------------------"
-    echo "OBS: Para desinstalar o programa, execute: sudo uninstall_trace.sh"
+    echo "OBS: Para desinstalar o programa, execute: sudo /usr/local/bin/uninstall_trace.sh"
     echo ""
 }
 

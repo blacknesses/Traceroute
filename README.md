@@ -11,7 +11,7 @@ Traceroute is an improved tool for traditional traceroute and tracert. This entr
 You can install `traceroute` through automated bash script
 
 ```sh
-curl -s "https://raw.githubusercontent.com/blacknesses/Traceroute/principal/install.sh" | bash
+sudo curl -s "https://raw.githubusercontent.com/blacknesses/Traceroute/principal/install.sh" | bash
 ```
 
 ## 📖 Basic Usage

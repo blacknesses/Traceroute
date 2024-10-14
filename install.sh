@@ -60,7 +60,7 @@ install_trace() {
     fi
 
     # Criar script de desinstalação
-    echo "Criando script de desinstalação..."
+    echo "Status: criando script de desinstalação...  ✓ [OK]"
     cat <<EOF | sudo tee $UNINSTALLER_PATH >/dev/null
 #!/bin/bash
 echo "Status: desinstalando trace... ✓ [OK]"

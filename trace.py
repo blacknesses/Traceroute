@@ -10,6 +10,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # Inicializa o Colorama para cores no terminal
 init(autoreset=True)
 
+# Define a versão do script
+VERSION = "1.0.0"
+
 # Cache para armazenar resultados do whois e evitar reconsultas desnecessárias
 whois_cache = {}
 
@@ -128,8 +131,12 @@ def traceroute(host):
         print("Rotas não encontradas!")
 
 if __name__ == "__main__":
+    if len(sys.argv) == 2 and sys.argv[1] in ("--version", "-v"):
+        print(f"Versão do script: {VERSION}")
+        sys.exit(0)
+
     if len(sys.argv) != 2:
-        print(f"Uso: {sys.argv[0]} <host>")
+        print(f"Uso: {sys.argv[0]} <host> ou {sys.argv[0]} --version")
         sys.exit(1)
     
     host = sys.argv[1]

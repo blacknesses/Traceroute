@@ -21,3 +21,8 @@ trace IP/Domain
 ```
 
 ⚠️ Warning: Traceroute does not accept url syntax (https://) only the domain or ip address
+
+## 🥺 Uninstall
+```sh
+sudo bash ~/uninstall.sh
+```

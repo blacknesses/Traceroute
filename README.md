@@ -19,7 +19,7 @@ curl -s https://raw.githubusercontent.com/blacknesses/traceroute/main/install.sh
 ## 📖 Basic Usage
 
 ```sh
-traceroute IP/Domain
+trace IP/Domain
 ```
 
 ⚠️ Warning: Traceroute does not accept url syntax (https://) only the domain or ip address

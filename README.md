@@ -28,5 +28,7 @@ trace -v 0.1
 sudo /usr/local/bin/uninstall_trace.sh
 ```
 
+## 🔰 SHIELDS
+
 ![GitHub License](https://img.shields.io/github/license/blacknesses/Traceroute)
 ![GitHub top language](https://img.shields.io/github/languages/top/blacknesses/Traceroute)

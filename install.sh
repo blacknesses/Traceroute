@@ -12,10 +12,10 @@ git clone $REPO_URL $TEMP_DIR
 
 # Mover o script ou programa para /usr/local/bin
 echo "Instalando o programa... [OK]"
-sudo mv $TEMP_DIR/trace.py /usr/local/bin/trace
+sudo mv $TEMP_DIR/trace.py /usr/local/bin/trace.py
 
 # Tornar o script executável
-sudo chmod +x /usr/local/bin/trace
+sudo chmod +x /usr/local/bin/trace.py
 
 # Limpar o diretório temporário
 rm -rf $TEMP_DIR

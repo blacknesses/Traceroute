@@ -16,8 +16,12 @@ sudo curl -s "https://raw.githubusercontent.com/blacknesses/Traceroute/principal
 
 ## 📖 Basic Usage
 
+Syntax
 ```sh
 trace IP/Domain
+```
+Version
+```sh
 trace -v 0.1
 ```
 

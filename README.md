@@ -18,6 +18,7 @@ sudo curl -s "https://raw.githubusercontent.com/blacknesses/Traceroute/principal
 
 ```sh
 trace IP/Domain
+trace -v 0.1
 ```
 
 ⚠️ Warning: Traceroute does not accept url syntax (https://) only the domain or ip address

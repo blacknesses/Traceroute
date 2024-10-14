@@ -35,7 +35,7 @@ fi
 
 # Definir permissões
 echo "Status: configurando permissões...         ✓ [OK]"
-sudo chmod +x $INSTALL_DIR/seu_script.py >/dev/null 2>&1 &  # Executa em background
+sudo chmod +x $INSTALL_DIR/trace.py >/dev/null 2>&1 &  # Executa em background
 progress_bar 10  # Simula a barra de progresso (10 iterações)
 if [ $? -eq 0 ]; then
     echo "Status: permissões configuradas!            ✓ [OK]"

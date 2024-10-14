@@ -44,7 +44,7 @@ sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1  # Corrigi a variável do
 sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1
 progress_bar 10  # Simula a barra de progresso (10 iterações)
 if [ $? -eq 0 ]; then
-    echo "Status: permissões configuradas!            ✓ [OK]"
+    echo "Status: permissões configuradas!           ✓ [OK]"
 else
     echo "Status: falha ao configurar permissões! ✗ [FALHA]" >&2
     rm -rf "$TEMP_DIR"

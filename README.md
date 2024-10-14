@@ -1,6 +1,6 @@
 # 🌐 Traceroute
 
-![license](https://img.shields.io/github/license/blacknesses/traceroute)
+
 
 Traceroute is an improved tool for traditional traceroute and tracert. This entry-level version includes only the main features of traditional tracert, plus the whois of each gateway.
 

@@ -81,6 +81,7 @@ install_trace() {
     echo "-------------------------"
 }
 
+menu() {
 # Menu de opções: instalação ou desinstalação
 echo "Escolha uma opção:"
 echo "1) Instalar"
@@ -88,10 +89,11 @@ echo "2) Desinstalar"
 read -p "Digite o número da opção: " option
 
 if [ "$option" == "1" ]; then
-    install_trace
+    install_trace()
 elif [ "$option" == "2" ]; then
-    uninstall_trace
+    uninstall_trace()
 else
-    echo "Opção inválida. Saindo..."
-    exit 1
+    echo "Opção inválida..."
+    menu
 fi
+}

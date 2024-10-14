@@ -8,7 +8,7 @@ progress_bar() {
     local duration=$1
     local already_done=0
     local pending=$(($duration))
-    local bar="="
+    local bar=""
 
     while [ $already_done -lt $duration ]; do
         already_done=$((already_done + 1))

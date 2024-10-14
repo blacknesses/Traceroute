@@ -20,25 +20,25 @@ progress_bar() {
     printf "\n"
 }
 
-echo "Status: iniciando a instalação...            ✓ [OK]"
+echo "Status: iniciando a instalação...          ✓ [OK]"
 
 # Baixar o repositório
 echo "Status: baixando arquivos...               ✓ [OK]"
 git clone $REPO_URL $INSTALL_DIR >/dev/null 2>&1 &  # Executa em background
 progress_bar 20  # Simula a barra de progresso (20 iterações)
 if [ $? -eq 0 ]; then
-    echo "Status: repositório clonado com sucesso!    ✓ [OK]"
+    echo "Status: repositório clonado com sucesso!   ✓ [OK]"
 else
     echo "Status: falha ao clonar o repositório! ✗ [FALHA]" >&2
     exit 1
 fi
 
 # Definir permissões
-echo "Status: configurando permissões...        ✓ [OK]"
+echo "Status: configurando permissões...         ✓ [OK]"
 sudo chmod +x $INSTALL_DIR/seu_script.py >/dev/null 2>&1 &  # Executa em background
 progress_bar 10  # Simula a barra de progresso (10 iterações)
 if [ $? -eq 0 ]; then
-    echo "Status: permissões configuradas! ✓ [OK]"
+    echo "Status: permissões configuradas!            ✓ [OK]"
 else
     echo "Status: falha ao configurar permissões! ✗ [FALHA]" >&2
     exit 1

@@ -1,7 +1,10 @@
 #!/bin/bash
 
 REPO_URL="https://github.com/blacknesses/Traceroute"
-INSTALL_DIR="/usr/local/bin/trace"
+TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
+INSTALL_DIR="/usr/local/bin"
+SCRIPT_NAME="trace.py"
+SCRIPT_PATH="$INSTALL_DIR/trace"
 
 # Função para barra de progresso
 progress_bar() {
@@ -20,31 +23,38 @@ progress_bar() {
     printf "\n"
 }
 
+# Iniciar o processo de instalação
 echo "Status: iniciando a instalação...          ✓ [OK]"
 
-# Baixar o repositório
+# Baixar o repositório na pasta temporária
 echo "Status: baixando arquivos...               ✓ [OK]"
-git clone $REPO_URL $INSTALL_DIR >/dev/null 2>&1 &  # Executa em background
+git clone $REPO_URL $TEMP_DIR >/dev/null 2>&1  # Removi a execução em background
 progress_bar 20  # Simula a barra de progresso (20 iterações)
 if [ $? -eq 0 ]; then
     echo "Status: repositório clonado com sucesso!   ✓ [OK]"
 else
     echo "Status: falha ao clonar o repositório! ✗ [FALHA]" >&2
+    rm -rf "$TEMP_DIR"
     exit 1
 fi
 
-# Definir permissões
+# Definir permissões e mover o script para o diretório de instalação
 echo "Status: configurando permissões...         ✓ [OK]"
-sudo chmod +x $INSTALL_DIR/trace.py >/dev/null 2>&1 &  # Executa em background
+sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1  # Corrigi a variável do script
+sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1
 progress_bar 10  # Simula a barra de progresso (10 iterações)
 if [ $? -eq 0 ]; then
     echo "Status: permissões configuradas!            ✓ [OK]"
 else
     echo "Status: falha ao configurar permissões! ✗ [FALHA]" >&2
+    rm -rf "$TEMP_DIR"
     exit 1
 fi
 
-# Concluir a instalação
+# Remover a pasta temporária após a instalação
+rm -rf "$TEMP_DIR"
+
+# Finalizar a instalação
 echo "Status: instalação finalizada com sucesso! ✓ [OK]"
 echo ""
 echo "-------------------------"

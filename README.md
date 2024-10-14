@@ -24,5 +24,5 @@ trace IP/Domain
 
 ## 🥺 Uninstall
 ```sh
-sudo bash ~/uninstall.sh
+sudo /usr/local/bin/uninstall_trace.sh
 ```

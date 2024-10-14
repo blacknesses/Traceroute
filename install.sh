@@ -10,15 +10,13 @@ UNINSTALLER_PATH="/usr/local/bin/uninstall_trace.sh"
 # Função para barra de progresso
 progress_bar() {
     local duration=$1
-    local already_done=0
-    local pending=$(($duration))
     local bar=""
+    local percentage=0
 
-    while [ $already_done -lt $duration ]; do
-        already_done=$((already_done + 1))
-        pending=$((pending - 1))
-        bar=$(printf "%-${already_done}s" "=")
-        printf "\r[%s>%*s] %d%%" "$bar" $pending "" $((already_done * 100 / duration))
+    for ((i=1; i<=duration; i++)); do
+        bar="${bar}="
+        percentage=$((i * 100 / duration))
+        printf "\r[%s] %d%%" "$bar" "$percentage"
         sleep 0.1
     done
     printf "\n"

@@ -4,7 +4,7 @@ REPO_URL="https://github.com/blacknesses/Traceroute"
 TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
 INSTALL_DIR="/usr/local/bin"
 SCRIPT_NAME="trace.py"
-SCRIPT_PATH="$INSTALL_DIR/trace"
+SCRIPT_PATH="$INSTALL_DIR/$SCRIPT_NAME"  # Movendo como trace.py
 
 # Função para barra de progresso
 progress_bar() {
@@ -40,8 +40,8 @@ fi
 
 # Definir permissões e mover o script para o diretório de instalação
 echo "Status: configurando permissões...         ✓ [OK]"
-sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1  # Corrigi a variável do script
-sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1
+sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1
+sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1  # Mudança aqui
 progress_bar 10  # Simula a barra de progresso (10 iterações)
 if [ $? -eq 0 ]; then
     echo "Status: permissões configuradas!           ✓ [OK]"
@@ -58,5 +58,5 @@ rm -rf "$TEMP_DIR"
 echo "Status: instalação finalizada com sucesso! ✓ [OK]"
 echo ""
 echo "-------------------------"
-echo "Sintaxe: trace IP/Domain"
+echo "Sintaxe: trace.py IP/Domain"  # Altere conforme o nome do script
 echo "-------------------------"

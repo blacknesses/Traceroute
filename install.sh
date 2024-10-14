@@ -63,10 +63,10 @@ install_trace() {
     echo "Criando script de desinstalação..."
     cat <<EOF | sudo tee $UNINSTALLER_PATH >/dev/null
 #!/bin/bash
-echo "Desinstalando trace..."
+echo "Status: desinstalando trace... ✓ [OK]"
 if [ -f "$SCRIPT_PATH" ]; then
     sudo rm "$SCRIPT_PATH"
-    echo "trace removido com sucesso!"
+    echo "Status: trace removido com sucesso! ✓ [OK]"
 else
     echo "trace não encontrado!"
 fi

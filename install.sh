@@ -1,3 +1,5 @@
+#!/bin/bash
+
 REPO_URL="https://github.com/blacknesses/Traceroute"
 TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
 INSTALL_DIR="/usr/local/bin"
@@ -81,20 +83,22 @@ install_trace() {
     echo "-------------------------"
 }
 
-menu() {
 # Menu de opções: instalação ou desinstalação
 echo "Escolha uma opção:"
 echo "1) Instalar"
 echo "2) Desinstalar"
 read -p "Digite o número da opção: " option
-while true; do
-    if [ "$option" == "1" ]; then
+
+# Aguarda a entrada do usuário e verifica a opção escolhida
+case "$option" in
+    1)
         install_trace
-    elif [ "$option" == "2" ]; then
+        ;;
+    2)
         uninstall_trace
-    else
-        echo "Opção inválida..."
-        menu
-    fi
-done
-}
+        ;;
+    *)
+        echo "Opção inválida. Saindo..."
+        exit 1
+        ;;
+esac

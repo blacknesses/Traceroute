@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 init(autoreset=True)
 
 # Define a versão do script
-VERSION = "1.0.0"
+VERSION = "0.1"
 
 # Cache para armazenar resultados do whois e evitar reconsultas desnecessárias
 whois_cache = {}

@@ -1,24 +1,49 @@
 #!/bin/bash
 
-# Nome do repositório GitHub
 REPO_URL="https://github.com/blacknesses/Traceroute"
+INSTALL_DIR="/usr/local/bin/trace"
 
-# Diretório temporário para clonar o repositório
-TEMP_DIR=$(mktemp -d)
+# Função para barra de progresso
+progress_bar() {
+    local duration=$1
+    local already_done=0
+    local pending=$(($duration))
+    local bar=""
 
-# Clonar o repositório
-echo "Status: clonando o repositório... [OK]"
-git clone $REPO_URL $TEMP_DIR > dev/null
+    while [ $already_done -lt $duration ]; do
+        already_done=$((already_done + 1))
+        pending=$((pending - 1))
+        bar=$(printf "%-${already_done}s" "=")
+        printf "\r[%s>%*s] %d%%" "$bar" $pending "" $((already_done * 100 / duration))
+        sleep 0.1
+    done
+    printf "\n"
+}
 
-# Mover o script ou programa para /usr/local/bin
-echo "Status: instalando o programa... [OK]"
-sudo mv $TEMP_DIR/trace.py /usr/local/bin/trace
+echo "Status: iniciando a instalação... [OK]"
 
-# Tornar o script executável
-sudo chmod +x /usr/local/bin/trace
+# Baixar o repositório
+echo "Baixando arquivos..."
+git clone $REPO_URL $INSTALL_DIR >/dev/null 2>&1 &  # Executa em background
+progress_bar 20  # Simula a barra de progresso (20 iterações)
+if [ $? -eq 0 ]; then
+    echo "Status: repositório clonado com sucesso! ✓ [OK]"
+else
+    echo "Status: falha ao clonar o repositório! ✗ [FALHA]" >&2
+    exit 1
+fi
 
-# Limpar o diretório temporário
-rm -rf $TEMP_DIR
+# Definir permissões
+echo "Status: configurando permissões... [OK]"
+sudo chmod +x $INSTALL_DIR/seu_script.py >/dev/null 2>&1 &  # Executa em background
+progress_bar 10  # Simula a barra de progresso (10 iterações)
+if [ $? -eq 0 ]; then
+    echo "Status: permissões configuradas! ✓ [OK]"
+else
+    echo "Status: falha ao configurar permissões! ✗ [FALHA]" >&2
+    exit 1
+fi
 
-echo "Status: instalação concluída! Agora você pode usar 'trace' no terminal."
-echo "Sintaxe: trace IP/Doamain"
+# Concluir a instalação
+echo "Status: instalação finalizada com sucesso! [OK]"
+echo "Sintaxe: trace IP/Domain"

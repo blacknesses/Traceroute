@@ -1,5 +1,3 @@
-#!/bin/bash
-
 REPO_URL="https://github.com/blacknesses/Traceroute"
 TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
 INSTALL_DIR="/usr/local/bin"
@@ -23,40 +21,77 @@ progress_bar() {
     printf "\n"
 }
 
-# Iniciar o processo de instalação
-echo "Status: iniciando a instalação...          ✓ [OK]"
+# Função de desinstalação
+uninstall_trace() {
+    echo "Status: iniciando a desinstalação...       ✓ [OK]"
+    
+    # Verifica se o arquivo existe
+    if [ -f "$SCRIPT_PATH" ]; then
+        sudo rm "$SCRIPT_PATH" >/dev/null 2>&1
+        progress_bar 10
+        if [ $? -eq 0 ]; then
+            echo "Status: desinstalação concluída com sucesso! ✓ [OK]"
+        else
+            echo "Status: falha ao remover o script!         ✗ [FALHA]" >&2
+            exit 1
+        fi
+    else
+        echo "Status: script não encontrado!             ✗ [FALHA]" >&2
+        exit 1
+    fi
+}
 
-# Baixar o repositório na pasta temporária
-echo "Status: baixando arquivos...               ✓ [OK]"
-git clone $REPO_URL $TEMP_DIR >/dev/null 2>&1  # Removi a execução em background
-progress_bar 20  # Simula a barra de progresso (20 iterações)
-if [ $? -eq 0 ]; then
-    echo "Status: repositório clonado com sucesso!   ✓ [OK]"
-else
-    echo "Status: falha ao clonar o repositório! ✗ [FALHA]" >&2
+# Função de instalação
+install_trace() {
+    echo "Status: iniciando a instalação...          ✓ [OK]"
+
+    # Baixar o repositório na pasta temporária
+    echo "Status: baixando arquivos...               ✓ [OK]"
+    git clone $REPO_URL $TEMP_DIR >/dev/null 2>&1  # Removi a execução em background
+    progress_bar 20  # Simula a barra de progresso (20 iterações)
+    if [ $? -eq 0 ]; then
+        echo "Status: repositório clonado com sucesso!   ✓ [OK]"
+    else
+        echo "Status: falha ao clonar o repositório!     ✗ [FALHA]" >&2
+        rm -rf "$TEMP_DIR"
+        exit 1
+    fi
+
+    # Definir permissões e mover o script para o diretório de instalação
+    echo "Status: configurando permissões...         ✓ [OK]"
+    sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1
+    sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1  # Mudança aqui
+    progress_bar 10  # Simula a barra de progresso (10 iterações)
+    if [ $? -eq 0 ]; then
+        echo "Status: permissões configuradas!           ✓ [OK]"
+    else
+        echo "Status: falha ao configurar permissões!    ✗ [FALHA]" >&2
+        rm -rf "$TEMP_DIR"
+        exit 1
+    fi
+
+    # Remover a pasta temporária após a instalação
     rm -rf "$TEMP_DIR"
+
+    # Finalizar a instalação
+    echo "Status: instalação finalizada com sucesso! ✓ [OK]"
+    echo ""
+    echo "-------------------------"
+    echo "Sintaxe: trace.py IP/Domain"
+    echo "-------------------------"
+}
+
+# Menu de opções: instalação ou desinstalação
+echo "Escolha uma opção:"
+echo "1) Instalar"
+echo "2) Desinstalar"
+read -p "Digite o número da opção: " option
+
+if [ "$option" == "1" ]; then
+    install_trace
+elif [ "$option" == "2" ]; then
+    uninstall_trace
+else
+    echo "Opção inválida. Saindo..."
     exit 1
 fi
-
-# Definir permissões e mover o script para o diretório de instalação
-echo "Status: configurando permissões...         ✓ [OK]"
-sudo chmod +x "$TEMP_DIR/$SCRIPT_NAME" >/dev/null 2>&1
-sudo mv "$TEMP_DIR/$SCRIPT_NAME" "$SCRIPT_PATH" >/dev/null 2>&1  # Mudança aqui
-progress_bar 10  # Simula a barra de progresso (10 iterações)
-if [ $? -eq 0 ]; then
-    echo "Status: permissões configuradas!           ✓ [OK]"
-else
-    echo "Status: falha ao configurar permissões! ✗ [FALHA]" >&2
-    rm -rf "$TEMP_DIR"
-    exit 1
-fi
-
-# Remover a pasta temporária após a instalação
-rm -rf "$TEMP_DIR"
-
-# Finalizar a instalação
-echo "Status: instalação finalizada com sucesso! ✓ [OK]"
-echo ""
-echo "-------------------------"
-echo "Sintaxe: trace.py IP/Domain"  # Altere conforme o nome do script
-echo "-------------------------"

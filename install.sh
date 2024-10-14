@@ -3,8 +3,8 @@
 REPO_URL="https://github.com/blacknesses/Traceroute"
 TEMP_DIR=$(mktemp -d)  # Cria uma pasta temporária
 INSTALL_DIR="/usr/local/bin"
-SCRIPT_NAME="trace.py"
-SCRIPT_PATH="$INSTALL_DIR/$SCRIPT_NAME"  # Movendo como trace.py
+SCRIPT_NAME="trace"
+SCRIPT_PATH="$INSTALL_DIR/$SCRIPT_NAME"  # Movendo como trace
 UNINSTALLER_PATH="/usr/local/bin/uninstall_trace.sh"
 
 # Função para barra de progresso
@@ -57,12 +57,12 @@ install_trace() {
     echo "Criando script de desinstalação..."
     cat <<EOF | sudo tee $UNINSTALLER_PATH >/dev/null
 #!/bin/bash
-echo "Desinstalando trace.py..."
+echo "Desinstalando trace..."
 if [ -f "$SCRIPT_PATH" ]; then
     sudo rm "$SCRIPT_PATH"
-    echo "trace.py removido com sucesso!"
+    echo "trace removido com sucesso!"
 else
-    echo "trace.py não encontrado!"
+    echo "trace não encontrado!"
 fi
 rm -- "\$0"  # Remove este script após a execução
 EOF
@@ -75,7 +75,7 @@ EOF
     echo "Status: instalação finalizada com sucesso! ✓ [OK]"
     echo ""
     echo "-------------------------"
-    echo "Sintaxe: trace.py IP/Domain"
+    echo "Sintaxe: trace IP/Domain"
     echo "-------------------------"
     echo "OBS: Para desinstalar o programa, execute: sudo uninstall_trace.sh"
     echo ""
